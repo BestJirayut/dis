@@ -211,16 +211,16 @@ COLOR_CHOICES = [
 
 @bot.tree.command(name="announce", description="สร้างประกาศแบบสวยงาม ลงรูปได้ เลือกสีได้")
 @app_commands.describe(
-    สี="เลือกสีจากเมนู (ถ้าใส่ hex ในช่องถัดไปจะใช้ hex แทน)",
+    color="เลือกสีจากเมนู (ถ้าใส่ hex ในช่องถัดไปจะใช้ hex แทน)",
     hex="รหัสสีเอง เช่น #5865F2 (ไม่บังคับ — ทับค่าจากเมนู)",
-    แท็กบทบาท="เลือกบทบาทที่จะแท็ก/ping พร้อมประกาศ (ไม่บังคับ)",
+    role="เลือกบทบาทที่จะแท็ก/ping พร้อมประกาศ (ไม่บังคับ)",
 )
-@app_commands.choices(สี=COLOR_CHOICES)
+@app_commands.choices(color=COLOR_CHOICES)
 async def announce(
     interaction: discord.Interaction,
-    สี: app_commands.Choice[str] | None = None,
+    color: app_commands.Choice[str] | None = None,
     hex: str | None = None,
-    แท็กบทบาท: discord.Role | None = None,
+    role: discord.Role | None = None,
 ):
     # สิทธิ์: ต้องมีสิทธิ์จัดการข้อความ
     if not interaction.user.guild_permissions.manage_messages:
@@ -240,14 +240,14 @@ async def announce(
                 ephemeral=True,
             )
             return
-    elif สี:
-        color_value = PRESET_COLORS.get(สี.value)
+    elif color:
+        color_value = PRESET_COLORS.get(color.value)
 
     if color_value is None:
         color_value = 0x5865F2  # ค่าเริ่มต้น = น้ำเงิน Discord
 
     await interaction.response.send_modal(
-        AnnounceModal(color_value=color_value, ping_role=แท็กบทบาท)
+        AnnounceModal(color_value=color_value, ping_role=role)
     )
 
 

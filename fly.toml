@@ -1,7 +1,7 @@
 # fly.toml — ตั้งค่า deploy บน Fly.io
 # เปลี่ยน app = "..." ให้ตรงกับชื่อแอปของคุณ (เช่น best-u5yz4a)
 
-app = "best-u5yz4a"
+app = "dis-0-kx1w"
 primary_region = "ams"
 
 [build]
